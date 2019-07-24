@@ -1,3 +1,4 @@
+/*队列*/
 function Queue(){
     let item = [];
     //向队列尾部添加元素
@@ -30,6 +31,7 @@ function Queue(){
     }
 }
 
+/*字典*/
 function Dictionary(){
 	let items = {};
 	//向字典中设置元素
@@ -125,7 +127,7 @@ function Graph(){
 		queue.enqueue(v);
 		while(!queue.isEmpty()){
 			let current = queue.dequeue();
-			let neighbors = adjList.get(current);
+			let neighbors = adjList.get(current);	//当前元素的邻接点数组
 			color[current] = 'gray';
 			for(let i = 0 ; i < neighbors.length ; i++){
 				let n = neighbors[i];
@@ -135,7 +137,7 @@ function Graph(){
 				}
 			}
 			color[current] = 'black';
-			typeof callback === 'function' && callback(current)
+			typeof callback === 'function' && callback(current);
 		}
 	}
 	//广度优先最短路径方法 优化
@@ -187,3 +189,4 @@ graph.addEdge('B', 'F');
 graph.addEdge('E', 'I');
 //graph.check();
 graph.bfs(myVertices[0], function(e){ console.info('visit', e) })
+graph.BFS(myVertices[0], function(e){ console.info('visit', e) })
