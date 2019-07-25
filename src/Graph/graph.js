@@ -140,7 +140,7 @@ function Graph(){
 			typeof callback === 'function' && callback(current);
 		}
 	}
-	//广度优先最短路径方法 优化
+	//优化 广度优先最短路径方法
 	this.BFS = function(v, callback){
 		let color = initialColor();
 		let queue = new Queue();
@@ -169,6 +169,27 @@ function Graph(){
 		}
 		return { distances: d, predecessors: pred }
 	}
+	//深度优先搜索
+	this.dfs = function(callback){
+		let color = initialColor();
+		for(let i = 0 ; i < vertices.length ; i++){
+			if(color[vertices[i]] === 'white'){
+				dfsVisit(vertices[i], color, callback)
+			}
+		}
+		function dfsVisit(v, color, callback){
+			color[v] = 'gray';
+			typeof callback === 'function' && callback(v);
+			let neighbors = adjList.get(v);
+			for(let i = 0 ; i < neighbors.length ; i++){
+				let n = neighbors[i];
+				if(color[n] === 'white'){
+				 	dfsVisit(n, color, callback)
+				}
+			}
+			color[v] = 'black';
+		}
+	}
 }
 
 /*测试代码*/
@@ -187,6 +208,7 @@ graph.addEdge('D', 'H');
 graph.addEdge('B', 'E');
 graph.addEdge('B', 'F');
 graph.addEdge('E', 'I');
-//graph.check();
-graph.bfs(myVertices[0], function(e){ console.info('visit', e) })
-graph.BFS(myVertices[0], function(e){ console.info('visit', e) })
+graph.check();
+//graph.bfs(myVertices[0], function(e){ console.info('visit', e) })
+//graph.BFS(myVertices[0], function(e){ console.info('visit', e) })
+graph.dfs(function(e){ console.info('visit', e) })
