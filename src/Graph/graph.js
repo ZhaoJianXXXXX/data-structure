@@ -195,9 +195,7 @@ function Graph(){
 /*测试代码*/
 let graph = new Graph();
 let myVertices = ['A','B','C','D','E','F','G','H','I'];
-for(let i = 0 ; i < myVertices.length ; i++){
-	graph.addVertex(myVertices[i]);
-}
+myVertices.map((item) => { graph.addVertex(item) })
 graph.addEdge('A', 'B');
 graph.addEdge('A', 'C');
 graph.addEdge('A', 'D');
