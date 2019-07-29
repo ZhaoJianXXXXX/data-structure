@@ -63,8 +63,8 @@ let Login = (function Login(){
 	let PASSWORD = Symbol('pwd');
 	class Login {
 		constructor(username, password) {
-			this.username = username
-			this[PASSWORD] = password
+			this.username = username;
+			this[PASSWORD] = password;
 		}
 		checkPassword() {
 			return this[PASSWORD]
@@ -73,9 +73,8 @@ let Login = (function Login(){
 	return Login
 })()
 
-
 let login = new Login('24450', '123');
-login.checkPassword()
+login.checkPassword();
 
 /**
  * 注册和获取全局Symbol
