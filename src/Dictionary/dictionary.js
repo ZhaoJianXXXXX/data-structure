@@ -1,5 +1,5 @@
 /**
- * 实现字典 Dictionary
+ * 实现字典 Dictionary/Map
  * 以[键, 值]的方式存储
  */
 

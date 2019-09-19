@@ -24,7 +24,7 @@ s2 === s3;	//false
 let s1 = Symbol('s1');
 let obj = {
 	abc: 123,
-	"hello": "world",
+	"title": "world",
 	[s1]: '这是symbol'
 }
 obj["abc"]; 	//123
@@ -33,7 +33,7 @@ obj[s1];		//'这是symbol'
 
 //对象枚举
 //我们可以利用这一特点来更好的设计我们的数据对象，让“对内操作”和“对外选择性输出”变得更加优雅
-console.info(Object.keys(obj))   		//['age', 'title']
+console.info(Object.keys(obj))   		//['abc', 'title']
 
 for (let i in obj) {
    console.info(i)   					//分别会输出：'age' 和 'title'
@@ -41,10 +41,10 @@ for (let i in obj) {
 
 console.info(Object.getOwnPropertyNames(obj))   // ['age', 'title']
 
-console.info(JSON.stringify(obj));		// {"age":18,"title":"Engineer"}
+console.info(JSON.stringify(obj));		// {"age":18,"title":"world"}
 
 // 使用Object的API 可以获取到Symbol定义的属性
-Object.getOwnPropertySymbols(obj); // [Symbol(name)]
+Object.getOwnPropertySymbols(obj); // [Symbol(s1)]
 
 // 使用新增的反射API
 Reflect.ownKeys(obj); 	// [Symbol(name), 'age', 'title']
