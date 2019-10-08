@@ -114,7 +114,7 @@ function Graph(){
 		return string;
 	}
 	function initialColor(){
-		let color = [];
+		let color = {};
 		for(let i = 0 ; i < vertices.length ; i++){
 			color[vertices[i]] = 'white';
 		}
@@ -144,11 +144,11 @@ function Graph(){
 	this.BFS = function(v, callback){
 		let color = initialColor();
 		let queue = new Queue();
-		let d = [];		//距离数组
-		let pred = [];	//前溯点数组
+		let dis = {};		//当前v节点 距离每个节点距离
+		let pred = {};		//每个节点的前溯点
 		queue.enqueue(v);
 		for(let i = 0 ; i < vertices.length ; i++){
-			d[vertices[i]] = 0;
+			dis[vertices[i]] = 0;
 			pred[vertices[i]] = null;
 		}
 		while(!queue.isEmpty()){
@@ -159,7 +159,7 @@ function Graph(){
 				let n = neighbors[i];
 				if(color[n] === 'white'){
 				 	color[n] = 'gray';
-					d[n] = d[current] + 1;
+					dis[n] = dis[current] + 1;
 					pred[n] = current;
 					queue.enqueue(n);
 				}
@@ -167,7 +167,7 @@ function Graph(){
 			color[current] = 'black';
 			typeof callback === 'function' && callback(current)
 		}
-		return { distances: d, predecessors: pred }
+		return { distances: dis, predecessors: pred }
 	}
 	//深度优先搜索
 	this.dfs = function(callback){
