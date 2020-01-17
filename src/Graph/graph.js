@@ -167,7 +167,7 @@ function Graph(){
 			color[current] = 'black';
 			typeof callback === 'function' && callback(current)
 		}
-		return { distances: dis, predecessors: pred }
+		return { distances: dis, predecessors: pred, color }
 	}
 	//深度优先搜索
 	this.dfs = function(callback){
@@ -189,6 +189,38 @@ function Graph(){
 			}
 			color[v] = 'black';
 		}
+		return { distances: dis, predecessors: pred, color }
+	}
+	//深度优先搜索优化
+	this.DFS = function(callback){
+		let color = initialColor();
+		let dis = {};		//当前v节点 距离每个节点距离
+		let pred = {};		//每个节点的前溯点
+		let time = 0;
+		for(let i = 0 ; i < vertices.length ; i++){
+			dis[vertices[i]] = 0;
+			pred[vertices[i]] = 0;
+		}
+		for(let i = 0 ; i < vertices.length ; i++){
+			if(color[vertices[i]] === 'white'){
+				DFSVisit(vertices[i], color, callback, dis, pred);
+			}
+		}
+		function DFSVisit(v, color, callback, dis, pred){
+			color[v] = 'gray';
+			dis[v] = ++time;
+			typeof callback === 'function' && callback(v);
+			let neighbors = adjList.get(v);
+			for(let i = 0 ; i < neighbors.length ; i++){
+				let n = neighbors[i];
+				if(color[n] === 'white'){
+					pred[n] = v;
+				 	DFSVisit(n, color, callback, dis, pred);
+				}
+			}
+			color[v] = 'black';
+		}
+		return { distances: dis, predecessors: pred, color }
 	}
 }
 
@@ -209,4 +241,5 @@ graph.addEdge('E', 'I');
 graph.check();
 //graph.bfs(myVertices[0], function(e){ console.info('visit', e) })
 //graph.BFS(myVertices[0], function(e){ console.info('visit', e) })
-graph.dfs(function(e){ console.info('visit', e) })
+//graph.dfs(function(e){ console.info('visit', e) })
+graph.DFS(function(e){ console.info('visit', e) })
